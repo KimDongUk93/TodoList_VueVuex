@@ -1,7 +1,7 @@
   <template>
   <section>
     <ul>
-      <li v-for="(todoItem, index) in todoItems" :key="index">
+      <li v-for="(todoItem, index) in this.$store.state.todoItems" :key="index">
         <span
           @click="toggleComplete(todoItem)"
           :class="{ textComplete: todoItem.complete }"
@@ -16,13 +16,12 @@
 
 <script>
 export default {
-  props: ['todoItems'],
   methods: {
     removeTodo: function (todoItem, index) {
-      this.$emit("removeOneItem", todoItem, index)
+      this.$store.commit('removeOneItem', {todoItem, index})
     },
     toggleComplete: function (todoItem) {
-      this.$emit("toggleItem", todoItem)
+      this.$store.commit('toggleItem', todoItem)
     },
   },
 };
