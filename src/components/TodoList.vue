@@ -1,7 +1,7 @@
   <template>
   <section>
     <ul>
-      <li v-for="(todoItem, index) in this.$store.state.todoItems" :key="index">
+      <li v-for="(todoItem, index) in this.storeTodoItems" :key="index">
         <span
           @click="toggleComplete(todoItem)"
           :class="{ textComplete: todoItem.complete }"
@@ -15,7 +15,15 @@
 </template>
 
 <script>
+import {mapGetters} from 'vuex'
+
 export default {
+  computed: {
+    // todoItems(){
+    //   return this.$store.getters.storeTodoItems
+    // }
+    ...mapGetters(["storeTodoItems"])
+  },
   methods: {
     removeTodo: function (todoItem, index) {
       this.$store.commit('removeOneItem', {todoItem, index})
