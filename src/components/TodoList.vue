@@ -8,26 +8,26 @@
           >완료</span
         >
         {{ todoItem.item }}
-        <span @click="removeTodo(todoItem, index)">X</span>
+        <span @click="removeTodo({todoItem, index})">X</span>
       </li>
     </ul>
   </section>
 </template>
 
 <script>
-import {mapGetters} from 'vuex'
+import {mapGetters, mapMutations} from 'vuex'
 
 export default {
   computed: {
-    // todoItems(){
-    //   return this.$store.getters.storeTodoItems
-    // }
     ...mapGetters(["storeTodoItems"])
   },
   methods: {
-    removeTodo: function (todoItem, index) {
-      this.$store.commit('removeOneItem', {todoItem, index})
-    },
+    ...mapMutations({
+      removeTodo: "removeOneItem"
+    }),
+    // removeTodo: function (todoItem, index) {
+    //   this.$store.commit('removeOneItem', {todoItem, index})
+    // },
     toggleComplete: function (todoItem) {
       this.$store.commit('toggleItem', todoItem)
     },
